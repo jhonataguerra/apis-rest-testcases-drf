@@ -9,6 +9,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 from rest_framework import status
+from rest_framework.viewsets import ModelViewSet
 
 from core.models import Categoria
 
@@ -19,6 +20,7 @@ import json
 
 def teste(request):
     return HttpResponse("Teste Django")
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CategoriaView(View):
@@ -106,5 +108,10 @@ class CategoriasListGeneric(ListCreateAPIView):
 
 class CategoriaDetailGeneric(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer
+
+    
+class CategoriaViewSet(ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
