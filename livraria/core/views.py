@@ -2,6 +2,14 @@ from django.http import HttpResponse, JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+
+from rest_framework.views import APIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.response import Response
+from rest_framework.serializers import ModelSerializer
+from rest_framework import status
+
 from core.models import Categoria
 
 
@@ -49,6 +57,54 @@ class CategoriaView(View):
         return JsonResponse(data)
 
 
+class CategoriaSerializer(ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = '__all__'
 
 
+class CategoriasList(APIView):
+    def get(self, request):
+        categorias = Categoria.objects.all()
+        serializer = CategoriaSerializer(categorias, many=True)
+        return Response(serializer.data)
 
+    def post(self, request):
+        serializer = CategoriaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class CategoriasDetail(APIView):
+    def get(self, request, id):
+        categoria = get_object_or_404(Categoria.objects.all(), id=id)
+        serializer = CategoriaSerializer(categoria)
+        return Response(serializer.data)
+
+    def put(self, request, id):
+        categoria = get_object_or_404(Categoria.objects.all(), id=id)
+        serializer = CategoriaSerializer(categoria, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id):
+        categoria = get_object_or_404(Categoria.objects.all(), id=id)
+        categoria.delete()
+        return Response (status=status.HTTP_204_NO_CONTENT)
+
+
+class CategoriasListGeneric(ListCreateAPIView):
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer
+
+
+class CategoriaDetailGeneric(RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer

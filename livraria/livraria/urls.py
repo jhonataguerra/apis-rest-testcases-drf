@@ -23,5 +23,8 @@ urlpatterns = [
     path('teste/', views.teste),
     path('categorias/', views.CategoriaView.as_view()),
     path('categorias/<int:id>/', views.CategoriaView.as_view()),
-
+    path('categorias-apiview/', views.CategoriasList.as_view()),
+    path('categorias-apiview/<int:id>/', views.CategoriasDetail.as_view()),
+    path('categorias-generic/', views.CategoriasListGeneric.as_view()),
+    path('categorias-generic/<int:id>/', views.CategoriaDetailGeneric.as_view()),
 ]
