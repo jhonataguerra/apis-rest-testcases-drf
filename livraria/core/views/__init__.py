@@ -5,5 +5,6 @@ from .categoriaApiView import CategoriasDetail, CategoriasList
 from .categoriaGenericView import CategoriaDetailGeneric, CategoriasListGeneric
 
 # Modo a ser usado no restante do projeto
+from .autor import AutorViewSet
 from .categoria import CategoriaViewSet
 from .editora import EditoraViewSet
