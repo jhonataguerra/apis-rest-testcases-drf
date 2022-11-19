@@ -10,6 +10,6 @@ class CategoriasListGeneric(ListCreateAPIView):
 
 
 class CategoriaDetailGeneric(RetrieveUpdateDestroyAPIView):
-    lookup_field = 'id'
+    lookup_field = "id"
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer

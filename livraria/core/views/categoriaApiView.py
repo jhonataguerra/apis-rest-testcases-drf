@@ -21,7 +21,7 @@ class CategoriasList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
 
 class CategoriasDetail(APIView):
     def get(self, request, id):
@@ -41,4 +41,4 @@ class CategoriasDetail(APIView):
     def delete(self, request, id):
         categoria = get_object_or_404(Categoria.objects.all(), id=id)
         categoria.delete()
-        return Response (status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)

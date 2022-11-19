@@ -17,8 +17,3 @@ class ItensInline(admin.TabularInline):
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
     inlines = (ItensInline,)
-
-
-
-
-
