@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -143,4 +143,10 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Livraria",
     "DESCRIPTION": "Projeto de estudo para testar funcionalidades do Django e DRF",
     "VERSION": "0.1.0",
+}
+
+
+SIMPLE_JWT = {
+    "ACESS_TOKEN_LIFETIME": timedelta(minutes=180),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
