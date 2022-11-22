@@ -25,6 +25,7 @@ router.register(r"compras", views.CompraViewSet)
 
 
 urlpatterns = [
+    # URLs para testar funcionalidades do Django e DRF
     path("admin/", admin.site.urls),
     path("teste/", views.teste),
     path("categorias-class/", views.CategoriaView.as_view()),
@@ -33,6 +34,7 @@ urlpatterns = [
     path("categorias-apiview/<int:id>/", views.CategoriasDetail.as_view()),
     path("categorias-generic/", views.CategoriasListGeneric.as_view()),
     path("categorias-generic/<int:id>/", views.CategoriaDetailGeneric.as_view()),
+    # URLs do DRF Routers URL a serem usadas no projeto
     path("api/", include(router.urls)),
 ]
 
@@ -42,11 +44,9 @@ urlpatterns += [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
-# D
+# Swagger / Redoc / Schemas
 urlpatterns += [
-    # YOUR PATTERNS
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
-    # Optional UI:
     path(
         "swagger/",
         SpectacularSwaggerView.as_view(url_name="schema"),
